@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15B42" minimumToolsVersion="Automatic">
+    <entity name="Beer" representedClassName=".Beer" syncable="YES">
+        <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flag_code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="beer" inverseEntity="Image" syncable="YES"/>
+        <relationship name="itemType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageType" inverseName="beer" inverseEntity="ImageType" syncable="YES"/>
+    </entity>
+    <entity name="Image" representedClassName=".Image" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="beer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beer" inverseName="image" inverseEntity="Beer" syncable="YES"/>
+    </entity>
+    <entity name="ImageType" representedClassName=".ImageType" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="beer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beer" inverseName="itemType" inverseEntity="Beer" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Beer" positionX="-315" positionY="-531" width="128" height="163"/>
+        <element name="Image" positionX="-45" positionY="-549" width="128" height="73"/>
+        <element name="ImageType" positionX="25" positionY="-369" width="128" height="73"/>
+    </elements>
+</model>
