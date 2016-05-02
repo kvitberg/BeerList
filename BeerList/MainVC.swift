@@ -126,18 +126,18 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFe
         
         let beer2 =  NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
         beer2.name = "Pilsner"
-        beer2.brand = "Bintang"
-        beer2.country = "Indonesia"
+        beer2.brand = "Ringnes"
+        beer2.country = "Norway"
         
         let beer3 =  NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
         beer3.name = "Pilsner"
-        beer3.brand = "Bintang"
-        beer3.country = "Indonesia"
+        beer3.brand = "Kirin"
+        beer3.country = "Japan"
         
         let beer4 =  NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
         beer4.name = "Pilsner"
-        beer4.brand = "Bintang"
-        beer4.country = "Indonesia"
+        beer4.brand = "Tuborg"
+        beer4.country = "Denmark"
         
         //appDelegate.saveContext()
     }
