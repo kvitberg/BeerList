@@ -14,7 +14,7 @@ class BeerCell: UITableViewCell {
     @IBOutlet weak var beerName: UILabel!
     @IBOutlet weak var country: UILabel!
 
-    func configuereCell(beer: Beer){
+    func configuereCell(_ beer: Beer){
         beerName.text = beer.name
         beerBrand.text = beer.brand
         country.text = beer.country

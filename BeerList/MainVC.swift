@@ -12,7 +12,7 @@ import CoreData
 class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate  {
 
     @IBOutlet weak var  tableView: UITableView!
-    var fetchedResultsController : NSFetchedResultsController!
+    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>!
     
     
     
@@ -23,34 +23,34 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFe
         tableView.dataSource = self
         tableView.delegate = self
         
-        generateTestData()
+        //generateTestData()
         attemptFetch()
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if let sections = fetchedResultsController.sections{
             return sections.count
         }
         return 0
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController.sections{
             let sectionInfo = sections[section]
             return sectionInfo.numberOfObjects
         }
         return 0
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 190
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! BeerCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "BeerCell", for: indexPath) as! BeerCell
         configureCell(cell, indexPath: indexPath)
         return cell
     }
-    func configureCell(cell: BeerCell, indexPath: NSIndexPath){
-        if let beer =  fetchedResultsController.objectAtIndexPath(indexPath) as? Beer{
+    func configureCell(_ cell: BeerCell, indexPath: IndexPath){
+        if let beer =  fetchedResultsController.object(at: indexPath) as? Beer{
             //Update Data
             cell.configuereCell(beer)
             
@@ -67,7 +67,7 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFe
         }
     }
     func setFetchedResults(){
-        let fetchRequest = NSFetchRequest(entityName: "Beer")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Beer")
         
         let sortDescriptor = NSSortDescriptor(key: "brand", ascending: true)
         
@@ -80,61 +80,61 @@ class MainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFe
         
         
     }
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch(type){
-        case .Insert:
+        case .insert:
             if let indexPath = newIndexPath{
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.insertRows(at: [indexPath], with: .fade)
                 
             }
             break
-        case .Delete:
+        case .delete:
             if let indexPath = indexPath{
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
     
             }
             break
-        case .Update:
+        case .update:
             if let indexPath = indexPath{
-                let cell = tableView.cellForRowAtIndexPath(indexPath) as! BeerCell
+                let cell = tableView.cellForRow(at: indexPath) as! BeerCell
                 //Update cell data
                 configureCell(cell, indexPath: indexPath)
             }
-        case .Move:
+        case .move:
             if let indexPath = indexPath{
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
             if let newIndexPath = newIndexPath{
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                tableView.insertRows(at: [newIndexPath], with: .fade)
                 
             }
             break
         }
     }
     func generateTestData(){
-        let beer =  NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
+        let beer =  NSEntityDescription.insertNewObject(forEntityName: "Beer", into: appDelegate.managedObjectContext) as! Beer
         beer.name = "Pilsner"
         beer.brand = "Bintang"
         beer.country = "Indonesia"
         
-        let beer2 =  NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
+        let beer2 =  NSEntityDescription.insertNewObject(forEntityName: "Beer", into: appDelegate.managedObjectContext) as! Beer
         beer2.name = "Pilsner"
         beer2.brand = "Ringnes"
         beer2.country = "Norway"
         
-        let beer3 =  NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
+        let beer3 =  NSEntityDescription.insertNewObject(forEntityName: "Beer", into: appDelegate.managedObjectContext) as! Beer
         beer3.name = "Pilsner"
         beer3.brand = "Kirin"
         beer3.country = "Japan"
         
-        let beer4 =  NSEntityDescription.insertNewObjectForEntityForName("Beer", inManagedObjectContext: appDelegate.managedObjectContext) as! Beer
+        let beer4 =  NSEntityDescription.insertNewObject(forEntityName: "Beer", into: appDelegate.managedObjectContext) as! Beer
         beer4.name = "Pilsner"
         beer4.brand = "Tuborg"
         beer4.country = "Denmark"
